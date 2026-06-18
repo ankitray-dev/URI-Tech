@@ -1,26 +1,221 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
-import AboutUs from "@/components/sections/AboutUs";
-import Industries from "@/components/sections/Industries";
-import Testimonials from "@/components/sections/Testimonials";
-import ContactForm from "@/components/sections/ContactForm";
+"use client";
 
-export default function Home() {
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Star, ArrowRight, CheckCircle } from 'lucide-react';
+
+const MOCK_TESTIMONIALS = [
+  { id: 1, name: "Amit Sharma", role: "Software Engineer at Infosys", image: "https://ui-avatars.com/api/?name=Amit+Sharma&background=f97316&color=fff", content: "URI Tech fundamentally transformed my career trajectory. The platform's intuitive job matching connected me with top-tier recruiters, drastically reducing my search time." },
+  { id: 2, name: "Dr. Rajan Gupta", role: "Placement Head, XYZ University", image: "https://ui-avatars.com/api/?name=Rajan+Gupta&background=f97316&color=fff", content: "Integrating URI Tech into our university's placement pipeline yielded an unprecedented 40% increase in successful student placements. The analytics dashboard is invaluable." },
+  { id: 3, name: "Priya Patel", role: "HR Director, TechFlow", image: "https://ui-avatars.com/api/?name=Priya+Patel&background=f97316&color=fff", content: "Sourcing pre-vetted, highly skilled candidates used to consume weeks of our operational bandwidth. URI Tech's rigorous screening algorithms optimized our workflow completely." }
+];
+
+export default function HomePage() {
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', requirement: '' });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    setFormData({ name: '', email: '', company: '', requirement: '' });
+    setTimeout(() => setIsSubmitted(false), 5000);
+  };
+
   return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <div id="jobs" className="scroll-mt-20" aria-hidden="true" />
-        <Services />
-        <AboutUs />
-        <Industries />
-        <Testimonials />
-        <ContactForm />
-      </main>
-      <Footer />
-    </>
+    <div className="min-h-screen bg-white font-sans text-slate-900 pb-20 selection:bg-orange-200 selection:text-orange-900">
+      
+      {}
+      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          <div className="order-2 lg:order-1">
+            <div className="inline-flex items-center space-x-2 bg-orange-50 border border-orange-100 px-4 py-2 rounded-full mb-8">
+              <span className="text-xs font-bold text-orange-600 uppercase tracking-wider">5000+ Placements</span>
+              <span className="w-1.5 h-1.5 bg-orange-400 rounded-full"></span>
+              <span className="text-xs font-bold text-orange-600 uppercase tracking-wider">200+ Companies</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.1]">
+              Unlock Your <br/>
+              Career with <br/>
+              <span className="text-orange-500">Exclusive Campus Jobs</span>
+            </h1>
+            
+            <p className="text-xl text-slate-500 mb-10 leading-relaxed max-w-lg font-medium">
+              Land your dream job faster with exclusive placements, real-time hiring insights, and direct connections to top recruiters. All completely free.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto text-lg px-8 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20">
+                  Hire Talent
+                </button>
+              </Link>
+              <Link href="/jobs" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto text-lg px-8 py-4 bg-white text-slate-900 border border-slate-200 font-bold rounded-xl hover:border-orange-500 hover:text-orange-500 transition-colors">
+                  Find Jobs
+                </button>
+              </Link>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="flex -space-x-3">
+                {[1,2,3].map(i => (
+                  <img key={i} className="w-12 h-12 rounded-full border-4 border-white object-cover bg-slate-100" 
+                       src={`/avatars/hero-avatar-${i}.svg`} alt="User" 
+                       onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=User+${i}&background=f97316&color=fff` }}/>
+                ))}
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-yellow-400 mb-1">
+                  {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
+                  <span className="text-slate-800 text-sm font-bold ml-2">4.8</span>
+                </div>
+                <span className="text-xs text-slate-500 font-medium">From 500+ reviews</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="order-1 lg:order-2 w-full flex justify-end">
+            <img 
+              src="/images/hero-image.jpg" 
+              alt="Students collaborating" 
+              className="rounded-[2.5rem] shadow-2xl w-full h-auto object-cover"
+              onError={(e) => {
+                 (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200&h=800";
+              }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {}
+      <section className="bg-slate-50 py-24 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12">About Us</h2>
+          <p className="text-slate-500 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-medium mb-16">
+            URI Tech is a leading IT staffing and recruitment firm. We specialize in connecting top technology talent with forward-thinking companies across India, leveraging data-driven insights to guarantee perfect cultural and technical fits.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {[
+              { num: '5000+', label: 'Placements' },
+              { num: '200+', label: 'Client Companies' },
+              { num: '15+', label: 'Years Experience' },
+              { num: '95%', label: 'Client Satisfaction' }
+            ].map((stat, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-3xl p-8 text-center shadow-sm hover:border-orange-500 hover:shadow-lg transition-all">
+                <div className="text-4xl md:text-5xl font-extrabold text-orange-500 mb-3 tracking-tight">{stat.num}</div>
+                <div className="text-sm md:text-base font-bold text-slate-700">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {}
+      <section className="py-24 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Industries We Serve</h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium">Specialized staffing solutions across key technology sectors.</p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+            {[
+              { name: 'IT & Software', icon: '/industries/it-software.svg' },
+              { name: 'Manufacturing & Logistics', icon: '/industries/manufacturing.svg' },
+              { name: 'Finance & Accounting', icon: '/industries/finance.svg' },
+              { name: 'Retail & E-Commerce', icon: '/industries/retail.svg' },
+              { name: 'Healthcare & Pharmaceuticals', icon: '/industries/healthcare.svg' }
+            ].map((ind, idx) => (
+              <div key={idx} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col items-center hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer text-center group">
+                <div className="w-20 h-20 flex items-center justify-center bg-orange-50 rounded-full text-orange-500 mb-6 group-hover:scale-110 transition-transform">
+                  <img src={ind.icon} alt={ind.name} className="w-10 h-10 object-contain" onError={(e) => { e.currentTarget.style.display='none'; }} />
+                </div>
+                <span className="font-bold text-lg text-slate-900">{ind.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {}
+      <section className="py-24 bg-slate-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-[3rem] my-12 border border-slate-100">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">What Our Clients Say</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {MOCK_TESTIMONIALS.map((testimonial) => (
+            <div key={testimonial.id} className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-xl transition-shadow">
+              <div>
+                <div className="flex text-yellow-400 mb-6">
+                  {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
+                </div>
+                <p className="text-slate-700 mb-8 leading-relaxed font-medium text-[15px]">"{testimonial.content}"</p>
+              </div>
+              <div className="flex items-center">
+                <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full mr-4 bg-orange-100 object-cover" />
+                <div>
+                  <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
+                  <p className="text-sm text-slate-500 font-medium">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          <div className="sticky top-32">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Get In Touch</h2>
+            <p className="text-xl text-slate-500 mb-12 font-medium">Ready to find your next hire or career opportunity? Contact us today.</p>
+          </div>
+          
+          <div className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10 relative">
+            {isSubmitted && (
+              <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-center p-8 animate-in fade-in duration-300 rounded-[2rem]">
+                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle className="w-10 h-10 text-green-500" />
+                </div>
+                <h3 className="text-3xl font-extrabold text-slate-900 mb-2">Inquiry Submitted</h3>
+                <p className="text-lg text-slate-500">Thank you! We'll be in touch shortly.</p>
+              </div>
+            )}
+            
+            <form onSubmit={handleContactSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-2">Name <span className="text-red-500">*</span></label>
+                  <input required type="text" placeholder="John Doe" className="w-full px-5 py-4 rounded-xl border border-slate-200 outline-none focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-slate-900 placeholder:text-slate-400 font-medium" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-2">Email <span className="text-red-500">*</span></label>
+                  <input required type="email" placeholder="johndoe@gmail.com" className="w-full px-5 py-4 rounded-xl border border-slate-200 outline-none focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-slate-900 placeholder:text-slate-400 font-medium" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-2">Company <span className="text-red-500">*</span></label>
+                <input required type="text" placeholder="Company name" className="w-full px-5 py-4 rounded-xl border border-slate-200 outline-none focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-slate-900 placeholder:text-slate-400 font-medium" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-2">Requirement <span className="text-red-500">*</span></label>
+                <textarea required rows={5} placeholder="Tell us about your staffing needs......" className="w-full px-5 py-4 rounded-xl border border-slate-200 outline-none focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all resize-none text-slate-900 placeholder:text-slate-400 font-medium" value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})}></textarea>
+              </div>
+              
+              <button className="w-full py-4 text-lg font-bold bg-slate-800 text-white hover:bg-slate-900 rounded-xl transition-colors shadow-lg" type="submit">Submit Inquiry</button>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
   );
 }

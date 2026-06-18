@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import "@/styles/globals.css";
 
+// Utilizing the variable font capabilities of Inter without restricting specific weights
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
@@ -30,8 +32,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased" suppressHydrationWarning>
-        {children}
+      {/* Applying the flexbox and min-height directly to the body ensures a robust sticky footer structure */}
+      <body 
+        className="flex min-h-screen flex-col font-sans antialiased text-slate-900 selection:bg-orange-200 selection:text-orange-900" 
+        suppressHydrationWarning
+      >
+        <Navbar />
+        {/* The flex-1 class forces the main content area to expand, automatically pushing the footer to the bottom */}
+        <main className="flex flex-1 flex-col w-full">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
